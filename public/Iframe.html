@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Iframe(Cache)</h2>
+    <button id="send"
+    style="
+    padding: 0.75rem 2rem;
+    background: linear-gradient(120deg, #34d399 0%, #10b981 100%);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px 0 rgba(16,185,129,0.15);
+    cursor: pointer;
+    transition: 
+      background 0.4s cubic-bezier(.4,0,.2,1),
+      transform 0.2s cubic-bezier(.4,0,.2,1),
+      box-shadow 0.2s;
+  "
+    >Send cache to parent</button>
+    <p id="cache">Current cache:</p>
+    <script>
+      let text = null
+      // Отримати повідомлення від parent
+      window.addEventListener('message', (event) => {
+        if (event.data?.type === 'FROM_PARENT') {
+          text = event.data.text
+          document.getElementById('cache').innerHTML =`Current cache: ${text}`
+        }
+      });
+
+      // Надіслати повідомлення у parent
+      document.getElementById('send').onclick = () => {
+        window.parent.postMessage(
+          { type: 'FROM_IFRAME', text: `${text}` },
+          '*'
+        );
+      };
+    </script>
+  </body>
+</html>
