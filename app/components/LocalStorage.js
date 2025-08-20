@@ -15,9 +15,10 @@ export default function LocalStorage() {
     // Слухати зміни в localStorage з інших вкладок
     useEffect(() => {
         const handleStorage = (e) => {
-        if (e.key === 'sharedCounter') {
-            setCounter(parseInt(e.newValue, 10));
-        }
+            if (e.key === 'sharedCounter') {
+                setCounter(parseInt(e.newValue, 10));
+            }
+            
         };
         window.addEventListener('storage', handleStorage);
         return () => window.removeEventListener('storage', handleStorage);

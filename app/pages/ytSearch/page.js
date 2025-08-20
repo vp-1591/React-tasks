@@ -44,7 +44,7 @@ export default function YoutubeSearch() {
   
   function debounce(fn, delay) { // send repeated API requests at limited rate
     return (...args) => {
-      [!timeout || clearTimeout(timeout)]
+      !timeout || clearTimeout(timeout)
       setCustomTimeout(setTimeout(() => fn(...args), delay))
     };
   }
